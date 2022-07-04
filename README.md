@@ -1,5 +1,6 @@
 # Give Up GitHub
-I have given up GitHub
+I have given up GitHub.
+
 You can find me on [codeberg](https://codeberg.org/hellodhruvin).
 
 # Why Give Up GitHub
