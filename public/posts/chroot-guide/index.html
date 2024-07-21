@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/styles.css" />
+    <meta charset="utf-8" />
+    <title>MyBlog</title>
+  </head>
+
+  <body>
+    <section class="section">
+      <h1 class="hero-title">Dhruvin Purohit</h1>
+      <div class="container">
+<div class="blog-container">
+  <div class="post-container">
+    <h1 class="title blog-title">
+      Chroot: Your friend when it comes to troubleshooting and recovering broken linux installations.
+    </h1>
+    <p class="subtitle"><strong>2024-07-19</strong></p>
+    <p>TODO: blah blah blah stuff about explaining what we will do today.</p>
+<h1 id="prerequisites">Prerequisites:</h1>
+<ul>
+<li>A bootable USB drive with a linux distro on it.</li>
+<li>Using the same linux distro as the broken install is not necessary but recommended, since we are trying to recover a broken install.</li>
+<li>Using the same architecture is necessary. You cannot chroot into an ARM machine with a x86_64 based linux bootable USB, or vice-versa.</li>
+</ul>
+<h1 id="steps">Steps:</h1>
+<h2 id="step-1-preparation">Step 1: Preparation</h2>
+<ul>
+<li>Poweroff the machine if it is on.</li>
+<li>Go to BIOS and disable secure boot if possible. Some linux distros do not
+have "trusted certificates", so we'll just disable this for now. You may keep
+this on if the distro on your live environment distro has signed certificates
+for secure boot.</li>
+</ul>
+<h2 id="step-2-starting-the-live-environment">Step 2: Starting the Live Environment</h2>
+<ul>
+<li>Plug in your bootable usb</li>
+<li>Power on your machine</li>
+<li>Go to boot menu (in most machines you have to press a certain key when the machine is powering on)</li>
+<li>Select your bootable usb</li>
+<li>Boot into the live environment (In most distros this will be the default "Try or install" option)</li>
+</ul>
+<h2 id="step-3-locating-the-necessary-partitions">Step 3: Locating the necessary partitions</h2>
+<ul>
+<li>Run <code>fdisk -l</code> or <code>lsblk</code> to see the partitions on the disk.</li>
+<li>We can identify partitions by disk sizes (lsblk command outputs a nice looking tree-like structure for our disks with sizes)</li>
+<li>If you chose to go with <code>fdisk</code>, it doesn't directly give us partition sizes
+but it does give us file system type, which can help us identify the ESP (EFI
+System Partition (also called boot partition)) and other partitions.</li>
+</ul>
+<h2 id="step-4-identifying-the-home-and-root-partitions">Step 4: Identifying the home and root partitions</h2>
+<ul>
+<li>This step requires a knowledge about the way the linux was installed on the
+host machine. It is neccessary to know whether we had a seperate home
+partition or not.</li>
+<li>Most linux installations have either a 2 partition install (/ (root
+partition) and /boot (ESP)) or a 3 partition install (/ (root partition),
+/boot (ESP), and /home (home partition)).</li>
+<li>If you are unaware of which one is home and which one is root, you can just
+mount (mounting is discussed later, just replace <code>/mnt</code> with any directory
+you want and run the mount command) both to some temporary path and look for
+<code>/etc/fstab</code> file on either of the mountpoints (if your system is really
+broken, this file may not even exist so try to identify other directories
+that usually only exist in root partition, like /var, /sys, etc.), upon
+looking at the contents of this file you can see what all gets mounted on
+every boot, you can ignore the SWAP partition as it's not a necessity.</li>
+<li>The home partition will typically have a bunch of directories corresponding
+to linux usernames of their respective users.</li>
+<li>The root partition will have directories like <code>/etc</code>, <code>/var</code>, <code>/bin</code> and so
+on. If you have a 2 partition install, it may also have a <code>/home</code> directory.</li>
+</ul>
+<h2 id="step-5-mounting-the-partitions">Step 5: Mounting the partitions</h2>
+<ul>
+<li>Create the necessary directories:</li>
+</ul>
+<blockquote>
+<p>For a 2 partition install:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mkdir -p</span><span> /mnt/home
+</span></code></pre>
+</blockquote>
+<blockquote>
+<p>For a 3 partition install:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mkdir -p</span><span> /mnt/{home,boot}
+</span></code></pre>
+</blockquote>
+<blockquote>
+<p>This creates a directory /mnt, and a subdirectory /mnt/boot (and /mnt/home if
+you have a 3 partition install)</p>
+</blockquote>
+<ul>
+<li>Mount the partitions:</li>
+</ul>
+<blockquote>
+<p>First we must mount the root partition (for example our root partition is /dev/sda2)</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mount</span><span> /dev/sda2 /mnt
+</span></code></pre>
+</blockquote>
+<blockquote>
+<p>Next we must mount our boot partition (ESP) (for example our boot partition is /dev/sda1)</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mount</span><span> /dev/sda1 /mnt/boot
+</span></code></pre>
+</blockquote>
+<blockquote>
+<p>If we have a home partition (3 partition installs only), we must mount that
+too. (for example our home partition is on a separate hard disk at /dev/sdb,
+so our partition is /dev/sdb1)</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mount</span><span> /dev/sdb1 /mnt/home
+</span></code></pre>
+</blockquote>
+<ul>
+<li>Mount (bind) the necessary system directories:</li>
+</ul>
+<blockquote>
+<p>/dev has files representing our hardware devices</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mount --bind</span><span> /dev /mnt/dev
+</span></code></pre>
+</blockquote>
+<blockquote>
+<p>/proc has files representing processes</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mount --bind</span><span> /proc /mnt/proc
+</span></code></pre>
+</blockquote>
+<blockquote>
+<p>/sys has files representing the kernel</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mount --bind</span><span> /sys /mnt/sys
+</span></code></pre>
+</blockquote>
+<h2 id="step-6-chroot">Step 6: Chroot</h2>
+<ul>
+<li>This is the final step, now we can chroot into the root partition and start troubleshooting/recovery.</li>
+</ul>
+<blockquote>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">chroot</span><span> /mnt
+</span></code></pre>
+</blockquote>
+
+  </div>
+</div>
+</div>
+    </section>
+  </body>
+</html>
