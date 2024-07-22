@@ -1,0 +1,76 @@
+@import "colors";
+
+$prose-width: min(65ch, 75vw);
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: $paper-ivory;
+  color: $ink-black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  nav {
+    width: $prose-width;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    .signature {
+      font-size: 2.5rem;
+      font-weight: thin;
+      color: $ink-blue;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+
+    .nav-right {
+      font-size: 1.5rem;
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+        width: $prose-width;
+        padding: 0 min(10ch, 10vw);
+      }
+    }
+  }
+
+  main {
+    width: $prose-width;
+    p {
+      font-size: 1.25rem;
+      margin-bottom: 1em;
+      color: $ink-black;
+    }
+  }
+
+  .handwritten {
+    font-family: "Kalam", sans-serif;
+  }
+
+  .cursive {
+    font-family: "Sacramento", sans-serif;
+  }
+
+  .hl {
+    color: $ink-blue;
+    font-weight: bold;
+  }
+}
