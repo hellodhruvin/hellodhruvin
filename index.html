@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link href="/src/styles.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dhruvin Purohit</title>
+  </head>
+  <body
+    class="bg-zinc-50 font-mono text-zinc-700 dark:bg-zinc-900 dark:text-zinc-400"
+  >
+    <button
+      id="toggle-theme"
+      class="fixed top-[20px] right-[20px] z-1 h-[32px] w-[32px] cursor-pointer rounded-full border border-zinc-200 p-[8px] text-zinc-950 dark:border-zinc-800 dark:text-zinc-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="hidden h-full w-full dark:block"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
+        />
+      </svg>
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="h-full w-full dark:hidden"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+        />
+      </svg>
+    </button>
+    <header class="pt-[56px] pb-[40px] md:pt-[72px] md:pb-[48px]">
+      <div class="m-auto max-w-[640px] px-[24px]">
+        <h1 class="pt-[48px] text-3xl text-zinc-950 dark:text-zinc-100">
+          Dhruvin Purohit
+        </h1>
+        <p class="texm-sm pb-[16px] text-zinc-700 dark:text-zinc-400">
+          <a href="https://github.com/hellodhruvin">@hellodhruvin</a>
+        </p>
+        <p class="text-sm">
+          Backend engineer creating efficient & reliable applications. I
+          specialize in server-side architecture, system design and linux
+          administration.
+        </p>
+        <p class="text-sm pt-[8px]">
+          I primarily use
+          <span
+            class="rounded border bg-[#3178C6]/15 px-[6px] py-[3px] dark:border-zinc-800"
+            >TypeScript</span
+          >&nbsp;<span
+            class="rounded border bg-[#D34516]/15 px-[6px] py-[3px] dark:border-zinc-800"
+            >Rust</span
+          >&nbsp;<span
+            class="rounded border bg-[#48205D]/15 px-[6px] py-[3px] dark:border-zinc-800"
+            >Elixir</span
+          >
+          for building my software.
+        </p>
+      </div>
+    </header>
+    <main class="m-auto max-w-[640px] px-[24px]">
+      <!-- <section class="py-[36px]">
+        <h2 class="pb-[24px] text-lg text-zinc-950 dark:text-zinc-100">
+          Projects
+        </h2>
+        <div class="grid gap-[16px]">
+          <article
+            class="rounded border border-zinc-200 bg-[linear-gradient(135deg,rgba(49,120,198,0.15)_50%,rgba(211,69,22,0.15)_50%)] p-[16px] hover:outline-4 hover:outline-offset-2 hover:outline-zinc-200 dark:border-zinc-800 dark:hover:outline-zinc-800"
+          >
+            <h3 class="mb-[16px] text-sm">
+              <a
+                class="underline hover:text-zinc-950 dark:hover:text-zinc-100"
+                href="https://github.com/hellodhruvin"
+                >Project Link 1</a
+              >
+            </h3>
+            <p class="text-sm">
+              Very long description of an imaginary open source project that was
+              built using rust & svelte.
+            </p>
+          </article>
+          <article
+            class="rounded border border-zinc-200 bg-[#48205D]/15 p-[16px] hover:outline-4 hover:outline-offset-2 hover:outline-zinc-200 dark:border-zinc-800 dark:hover:outline-zinc-800"
+          >
+            <h3 class="mb-[16px] text-sm">
+              <a
+                class="underline hover:text-zinc-950 dark:hover:text-zinc-100"
+                href="https://github.com/hellodhruvin"
+                >Project Link 2</a
+              >
+            </h3>
+            <p class="text-sm">
+              Very long description of an imaginary open source project that was
+              built using elixir.
+            </p>
+          </article>
+          <article
+            class="transition-shadows rounded border border-zinc-200 p-[16px] hover:outline-4 hover:outline-offset-2 hover:outline-zinc-200 dark:border-zinc-800 dark:hover:outline-zinc-800"
+          >
+            <h3 class="mb-[16px] text-sm">
+              <a
+                class="underline hover:text-zinc-950 dark:hover:text-zinc-100"
+                href="https://github.com/hellodhruvin"
+                >Project Link 1</a
+              >
+            </h3>
+            <p class="text-sm">
+              Very long description of an imaginary open source project that was
+              just built, no technology colors or anything.
+            </p>
+          </article>
+        </div>
+      </section> -->
+
+      <section class="py-[36px]">
+        <h2 class="pb-[24px] text-lg text-zinc-950 dark:text-zinc-100">
+          Experience
+        </h2>
+        <div class="grid gap-[16px]">
+          <!--class="rounded border border-zinc-200 bg-linear-to-r/shorter from-[#3178C6]/15 to-[#D34516]/15 p-[16px] dark:border-zinc-800"-->
+          <article
+            class="rounded border border-dashed border-zinc-200 p-[16px] hover:outline-4 hover:outline-offset-2 hover:outline-zinc-200 hover:outline-dotted dark:border-zinc-800 dark:hover:outline-zinc-800"
+          >
+            <h3 class="mb-[16px] text-sm">
+              <a
+                class="underline hover:text-zinc-950 dark:hover:text-zinc-100"
+                href="https://github.com/hellodhruvin"
+                >Your Company</a
+              >
+            </h3>
+            <p class="text-sm">Are you looking for a backend developer?</p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer
+      class="mt-[48px] border-t border-zinc-200 py-[36px] dark:border-zinc-800"
+    >
+      <div class="m-auto max-w-[640px] space-x-2 px-[24px]">
+        <a
+          class="text-sm underline hover:text-zinc-950 dark:hover:text-zinc-100"
+          href="https://github.com/hellodhruvin"
+          >GitHub</a
+        >
+        <a
+          class="text-sm underline hover:text-zinc-950 dark:hover:text-zinc-100"
+          href="https://linkedin.com/in/hellodhruvin"
+          >LinkedIn</a
+        >
+        <a
+          class="text-sm underline hover:text-zinc-950 dark:hover:text-zinc-100"
+          href="mailto:hellodhruvin@gmail.com"
+          >Email</a
+        >
+      </div>
+    </footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
